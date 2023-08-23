@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { axiosGarage } from "../api/AxiosConfig";
 import { Button, Table } from "antd";
-const Slots = ({ bookingSlots, setBookingSlots }) => {
+const Slots = ({ bookingSlots, setBookingSlots, handleBooking }) => {
   const getSlots = async () => {
     try {
       const response = await axiosGarage.get("/slots/search/all");
@@ -50,7 +50,13 @@ const Slots = ({ bookingSlots, setBookingSlots }) => {
       key: "actions",
       render: (_, record) => (
         <span className="SlotsTableActions">
-          <Button type="primary" shape="round">
+          <Button
+            onClick={() => {
+              handleBooking(record);
+            }}
+            type="primary"
+            shape="round"
+          >
             Book
           </Button>
         </span>

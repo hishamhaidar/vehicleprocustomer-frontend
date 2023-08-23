@@ -43,7 +43,8 @@ const Nav = ({ isLoggedIn, signOut }) => {
         )}
         {isLoggedIn && (
           <>
-            <Menu.Item key={"/booking"}>Booking</Menu.Item>
+            <Menu.Item key={"/booking"}>Book Slot</Menu.Item>
+            <Menu.Item key={"/mybookings"}>My Bookings</Menu.Item>
             <Menu.Item key={"/vehicles"}>Vehicles</Menu.Item>
             <Menu.Item key={"/profile"}>Profile</Menu.Item>
             <Menu.Item key="/logout" danger icon={<LogoutOutlined />}>

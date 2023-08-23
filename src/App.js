@@ -16,14 +16,18 @@ import Missing from "./Components/Missing";
 import Footer from "./Components/Footer";
 import useAxiosPrivate from "./hooks/useAxiosPrivate";
 import { message } from "antd";
+import MyBookings from "./Components/MyBookings";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [vehicles, setVehicles] = useState([]);
   const [userEmail, setUserEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [currentUserID, setCurrentUserID] = useState("");
   const { setAuth, auth } = useContext(AuthContext);
+  const [userFullName, setUserFullName] = useState("");
+  const [mybookings, setMyBookings] = useState([]);
   const authApi = useAxiosPrivate();
   const navigate = useNavigate();
   const signOut = () => {
@@ -32,7 +36,17 @@ function App() {
     navigate("/");
   };
   const [loading, setLoading] = useState(true);
+  const getVehicles = async () => {
+    try {
+      const response = await authApi.get(
+        `/vehicles/view/ownedby/${currentUserID}`
+      );
 
+      setVehicles(response?.data);
+    } catch (err) {
+      message.error("error while getting vehicles,please refresh");
+    }
+  };
   const getUserInfo = async () => {
     try {
       setLoading(true);
@@ -48,10 +62,15 @@ function App() {
       setLoading(false);
     }
   };
-
+  useEffect(() => {
+    !loading && getVehicles();
+  }, [loading]);
   useEffect(() => {
     isLoggedIn && getUserInfo();
   }, [isLoggedIn]);
+  useEffect(() => {
+    setUserFullName(`${firstName} ${lastName}`);
+  }, [firstName, lastName]);
   return (
     <div className="App">
       <Header />
@@ -77,16 +96,30 @@ function App() {
               <Route element={<RequireAuth signOut={signOut} />}>
                 <Route
                   path="booking"
-                  element={<BookingSlot currentUserID={currentUserID} />}
+                  element={
+                    <BookingSlot
+                      userFullName={userFullName}
+                      vehicles={vehicles}
+                    />
+                  }
                 />
-
+                <Route
+                  path="mybookings"
+                  element={
+                    <MyBookings
+                      currentUserID={currentUserID}
+                      mybookings={mybookings}
+                      setMyBookings={setMyBookings}
+                    />
+                  }
+                />
                 <Route
                   path="vehicles"
                   element={
                     <Vehicles
                       vehicleOwnerID={currentUserID}
-                      getUserInfo={getUserInfo}
-                      loading={loading}
+                      vehicles={vehicles}
+                      getVehicles={getVehicles}
                     />
                   }
                 />

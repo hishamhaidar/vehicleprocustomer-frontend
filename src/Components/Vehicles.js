@@ -1,33 +1,28 @@
 import { useEffect, useState } from "react";
-import { Button, DatePicker, Form, Input, Modal, Table, message } from "antd";
+import {
+  Alert,
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Modal,
+  Table,
+  message,
+} from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import "../App.css";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
-const Vehicles = ({ vehicleOwnerID, getUserInfo, loading }) => {
-  const [vehicles, setVehicles] = useState([]);
+const Vehicles = ({ vehicleOwnerID, vehicles, getVehicles }) => {
   const [editedVehicle, setEditedVehicle] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-
+  const [sucessMessage, setSuccessMessage] = useState("");
+  const [failMessage, setFailMessage] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
   const authApi = useAxiosPrivate();
-
-  const getVehicles = async () => {
-    try {
-      const response = await authApi.get(
-        `/vehicles/view/ownedby/${vehicleOwnerID}`
-      );
-
-      setVehicles(response?.data);
-    } catch (err) {
-      message.error("error while getting vehicles,please refresh");
-    }
-  };
-
-  useEffect(() => {
-    !loading && getVehicles();
-  }, [loading]);
 
   const handleEdit = (record) => {
     setIsEditing(true);
@@ -47,9 +42,11 @@ const Vehicles = ({ vehicleOwnerID, getUserInfo, loading }) => {
       );
 
       await getVehicles();
-      message.success(response?.data);
+      setSuccessMessage("Vehicle deleted successfully");
+      setSuccess(true);
     } catch (err) {
-      message.error(err?.response?.data);
+      setFailMessage("Failed to delete vehicle.");
+      setFail(true);
     }
   };
 
@@ -65,11 +62,12 @@ const Vehicles = ({ vehicleOwnerID, getUserInfo, loading }) => {
         `/vehicles/edit/${vehicleOwnerID}/${editedVehicle?.vehicleID}`,
         modifiedVehicle
       );
-
-      message.success("Edited successfully", 2);
       await getVehicles();
+      setSuccessMessage("Vehicle edited successfully");
+      setSuccess(true);
     } catch (err) {
-      message.error(err?.response?.data);
+      setFailMessage("Failed to edit vehicle.");
+      setFail(true);
     }
   };
   const handleAddingNewVehicle = async (data) => {
@@ -83,13 +81,12 @@ const Vehicles = ({ vehicleOwnerID, getUserInfo, loading }) => {
         `/vehicles/add/${vehicleOwnerID}`,
         formattedData
       );
-
-      if (response.status === 200) {
-        message.success("Added successfully", 2);
-        await getVehicles();
-      }
+      await getVehicles();
+      setSuccessMessage("Vehicle added successfully");
+      setSuccess(true);
     } catch (err) {
-      message.error(err?.response?.data);
+      setFailMessage("Failed to add vehicle.");
+      setFail(true);
     }
   };
   const columns = [
@@ -131,6 +128,25 @@ const Vehicles = ({ vehicleOwnerID, getUserInfo, loading }) => {
 
   return (
     <div>
+      {success && (
+        <Alert
+          type="success"
+          message={sucessMessage}
+          closable
+          afterClose={() => setSuccess(false)}
+          banner
+          className="custom-alert"
+        />
+      )}
+      {fail && (
+        <Alert
+          type="error"
+          message={failMessage}
+          closable
+          afterClose={() => setFail(false)}
+          className="custom-alert"
+        />
+      )}
       <Button
         type="primary"
         onClick={() => {

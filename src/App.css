@@ -70,3 +70,8 @@
 .ProfileActions .ant-btn {
   margin: 10px;
 }
+
+.custom-alert {
+  padding: 15px;
+  font-size: 30px;
+}
