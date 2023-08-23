@@ -1,38 +1,72 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App-Body {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App-Content {
+  flex: 1;
 }
-
-.App-header {
+.App-header,
+.App-Footer {
   background-color: #282c34;
-  min-height: 100vh;
+  display: flex;
+  height: 10vh;
+  align-items: center;
+  justify-content: center;
+  font-size: medium;
+  color: white;
+}
+/*Nav*/
+.App-Nav {
+  background-color: #282c34;
+  color: white;
+}
+
+.ant-menu-item:hover {
+  color: tomato;
+}
+
+.Login-Form,
+.Signup-Form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  text-align: left;
+}
+/*Profile*/
+.Profile {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.ProfileCard {
+  width: fit-content;
+  margin: 50px;
+  width: 500px;
+  background-color: aliceblue;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ProfileContent {
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.ProfileActions {
+  margin-top: 10px;
+  padding: 10px;
+}
+.ProfileActions .ant-btn {
+  margin: 10px;
 }
