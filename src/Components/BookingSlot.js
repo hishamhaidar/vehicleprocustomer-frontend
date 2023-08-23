@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Slots from "./Slots";
-import { Button, Modal, Form, Input, Select, Alert } from "antd";
+import { Button, Modal, Form, Input, Select, Alert, FloatButton } from "antd";
 import "../App.css";
 import { axiosGarage } from "../api/AxiosConfig";
 import useAuth from "../hooks/useAuth";
@@ -125,6 +125,7 @@ const BookingSlot = ({ userFullName, vehicles }) => {
           </Form.Item>
         </Form>
       </Modal>
+      <FloatButton.BackTop />
     </div>
   );
 };

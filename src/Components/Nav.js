@@ -4,13 +4,13 @@ import "../App.css";
 import { Menu, Modal } from "antd";
 
 import {
-  HomeOutlined,
+  HomeTwoTone,
+  HddTwoTone,
+  LogoutOutlined,
+  CarTwoTone,
+  IdcardTwoTone,
   LoginOutlined,
   UserAddOutlined,
-  LogoutOutlined,
-  UserOutlined,
-  SoundTwoTone,
-  ExclamationCircleOutlined,
 } from "@ant-design/icons";
 
 const Nav = ({ isLoggedIn, signOut }) => {
@@ -36,17 +36,31 @@ const Nav = ({ isLoggedIn, signOut }) => {
       >
         {!isLoggedIn && (
           <>
-            <Menu.Item key={"/"}>Home</Menu.Item>
-            <Menu.Item key={"/login"}>Login</Menu.Item>
-            <Menu.Item key={"/register"}>Sign up</Menu.Item>
+            <Menu.Item key={"/"} icon={<HomeTwoTone />}>
+              Home
+            </Menu.Item>
+            <Menu.Item key={"/login"} icon={<LoginOutlined />}>
+              Login
+            </Menu.Item>
+            <Menu.Item key={"/register"} icon={<UserAddOutlined />}>
+              Sign up
+            </Menu.Item>
           </>
         )}
         {isLoggedIn && (
           <>
-            <Menu.Item key={"/booking"}>Book Slot</Menu.Item>
-            <Menu.Item key={"/mybookings"}>My Bookings</Menu.Item>
-            <Menu.Item key={"/vehicles"}>Vehicles</Menu.Item>
-            <Menu.Item key={"/profile"}>Profile</Menu.Item>
+            <Menu.Item key={"/booking"} icon={<HomeTwoTone />}>
+              Book Slot
+            </Menu.Item>
+            <Menu.Item key={"/mybookings"} icon={<HddTwoTone />}>
+              My Bookings
+            </Menu.Item>
+            <Menu.Item key={"/vehicles"} icon={<CarTwoTone />}>
+              Vehicles
+            </Menu.Item>
+            <Menu.Item key={"/profile"} icon={<IdcardTwoTone />}>
+              Profile
+            </Menu.Item>
             <Menu.Item key="/logout" danger icon={<LogoutOutlined />}>
               Logout
             </Menu.Item>

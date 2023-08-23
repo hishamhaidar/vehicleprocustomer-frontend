@@ -24,6 +24,7 @@
   font-size: medium;
   color: white;
 }
+
 /*Nav*/
 .App-Nav {
   background-color: #282c34;
@@ -32,6 +33,7 @@
 
 .ant-menu-item:hover {
   color: tomato;
+  background-color: aliceblue;
 }
 
 .Login-Form,

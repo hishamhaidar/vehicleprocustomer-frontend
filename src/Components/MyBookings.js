@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, message } from "antd";
+import { FloatButton, Table, message } from "antd";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const MyBookings = ({ currentUserID, mybookings, setMyBookings }) => {
@@ -62,6 +62,7 @@ const MyBookings = ({ currentUserID, mybookings, setMyBookings }) => {
     <div>
       <h1>My Bookings</h1>
       <Table dataSource={mybookings} columns={columns} rowKey={"bookingID"} />
+      <FloatButton.BackTop />
     </div>
   );
 };

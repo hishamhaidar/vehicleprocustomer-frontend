@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { axiosGarage } from "../api/AxiosConfig";
-import { Button, Table } from "antd";
+import { Button, FloatButton, Table } from "antd";
 const Slots = ({ bookingSlots, setBookingSlots, handleBooking }) => {
   const getSlots = async () => {
     try {
@@ -71,6 +71,7 @@ const Slots = ({ bookingSlots, setBookingSlots, handleBooking }) => {
         columns={columns}
         rowKey="slotID"
       ></Table>
+      <FloatButton.BackTop />
     </div>
   );
 };

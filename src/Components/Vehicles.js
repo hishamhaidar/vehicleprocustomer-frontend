@@ -3,6 +3,7 @@ import {
   Alert,
   Button,
   DatePicker,
+  FloatButton,
   Form,
   Input,
   Modal,
@@ -258,6 +259,7 @@ const Vehicles = ({ vehicleOwnerID, vehicles, getVehicles }) => {
       >
         <p>Are you sure you want to delete this vehicle?</p>
       </Modal>
+      <FloatButton.BackTop />
     </div>
   );
 };
